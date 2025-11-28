@@ -2,28 +2,39 @@ name: CI
 
 on:
   push:
-    branches: [main]
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v5
-      - name: Set up Python 3.12
-        uses: actions/setup-python@v6
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
+          python-version: "3.13"
+
       - name: Install Poetry
-        run: pip install poetry
+        uses: snok/install-poetry@v1
+
       - name: Install dependencies
         run: poetry install
-      - name: Run tests
-        run: poetry run coverage run --branch -m pytest
-      - name: Coverage report
-        run: poetry run coverage xml
-      - name: Coverage report to Codecov
-        uses: codecov/codecov-action@v5
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
+      - name: Run tests
+        run: poetry run pytest
+
+      - name: Coverage report
+        run: poetry run coverage run -m pytest
+
+      - name: Coverage report to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+
+      - name: Lint
+        run: poetry run pylint src
