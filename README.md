@@ -1,0 +1,1 @@
+![CI](https://github.com/AresBeletski/ohtuvarasto/actions/workflows/main.yml/badge.svg)
