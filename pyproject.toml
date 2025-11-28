@@ -9,13 +9,15 @@ license = {text = "MIT"}
 requires-python = "^3.12"
 dependencies = [
     "sqlalchemy (==1.4.54)",
-    "fastapi (>=0.121.2,<0.122.0)"
+    "fastapi (>=0.121.2,<0.122.0)",
+    "pylint (>=4.0.3,<5.0.0)"
 ]
 
 [dependency-groups]
 dev = [
     "pytest (>=8.4.2,<9.0.0)",
-    "coverage (>=7.11.3,<8.0.0)"
+    "coverage (>=7.11.3,<8.0.0)",
+    "pylint (>=4.0.3,<5.0.0)"
 ]
 
 [tool.poetry]
